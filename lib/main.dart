@@ -1,25 +1,16 @@
+import 'package:alzheimer_patient_support/login.dart';
+import 'package:alzheimer_patient_support/register.dart';
+import 'package:alzheimer_patient_support/started.dart';
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Alzheimer Patient Support',
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('APS'),
-        ),
-        body: const Center(
-          child: Text('Hello World'),
-        ),
-      ),
-    );
-  }
+  runApp(MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: const StartedPage(),
+    routes: {
+      'register': (context) => const MyRegister(),
+      'login': (context) => const MyLogin(),
+      'started': (context) => const StartedPage(),
+    },
+  ));
 }
