@@ -1,3 +1,5 @@
+import 'package:alzheimer_patient_support/graph.dart';
+import 'package:alzheimer_patient_support/home.dart';
 import 'package:alzheimer_patient_support/login.dart';
 import 'package:flutter/material.dart';
 
@@ -130,7 +132,15 @@ class _MyRegisterState extends State<MyRegister> {
                                 backgroundColor: const Color(0xff4c505b),
                                 child: IconButton(
                                     color: Colors.white,
-                                    onPressed: () {},
+                                    onPressed: () {
+                                      Navigator.pushAndRemoveUntil(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => const MyGraph()
+                                          ),
+                                          ModalRoute.withName("/homePage")
+                                      );
+                                    },
                                     icon: const Icon(
                                       Icons.arrow_forward,
                                     )),

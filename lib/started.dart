@@ -8,6 +8,9 @@ class StartedPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        primaryColor: const Color(0xDD4B87EC),
+      ),
       home: Scaffold(
         body: Center(
           child: MyWidget(),
@@ -51,7 +54,7 @@ class MyWidget extends StatelessWidget {
                           MaterialPageRoute(
                               builder: (context) => const MyLogin()
                           ),
-                          ModalRoute.withName("/Home")
+                          ModalRoute.withName("/login")
                       );
                       // Navigator.push(context, MaterialPageRoute(
                       //     builder: (context) =>
