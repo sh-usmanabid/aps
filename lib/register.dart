@@ -1,7 +1,12 @@
+import 'dart:convert';
+
 import 'package:alzheimer_patient_support/graph.dart';
 import 'package:alzheimer_patient_support/home.dart';
 import 'package:alzheimer_patient_support/login.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class MyRegister extends StatefulWidget {
   const MyRegister({Key? key}) : super(key: key);
@@ -11,6 +16,19 @@ class MyRegister extends StatefulWidget {
 }
 
 class _MyRegisterState extends State<MyRegister> {
+  final username_controller = TextEditingController();
+  final email_controller = TextEditingController();
+  final password_controller = TextEditingController();
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    username_controller.dispose();
+    email_controller.dispose();
+    password_controller.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -36,7 +54,10 @@ class _MyRegisterState extends State<MyRegister> {
             SingleChildScrollView(
               child: Container(
                 padding: EdgeInsets.only(
-                    top: MediaQuery.of(context).size.height * 0.28),
+                    top: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.28),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -45,6 +66,7 @@ class _MyRegisterState extends State<MyRegister> {
                       child: Column(
                         children: [
                           TextField(
+                            controller: username_controller,
                             style: const TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
@@ -69,6 +91,7 @@ class _MyRegisterState extends State<MyRegister> {
                             height: 30,
                           ),
                           TextField(
+                            controller: email_controller,
                             style: const TextStyle(color: Colors.white),
                             decoration: InputDecoration(
                                 enabledBorder: OutlineInputBorder(
@@ -93,6 +116,7 @@ class _MyRegisterState extends State<MyRegister> {
                             height: 30,
                           ),
                           TextField(
+                            controller: password_controller,
                             style: const TextStyle(color: Colors.white),
                             obscureText: true,
                             decoration: InputDecoration(
@@ -133,13 +157,17 @@ class _MyRegisterState extends State<MyRegister> {
                                 child: IconButton(
                                     color: Colors.white,
                                     onPressed: () {
-                                      Navigator.pushAndRemoveUntil(
+                                      String username = email_controller.text;
+                                      String email = email_controller.text;
+                                      String password = password_controller.text;
+                                      checkDataAndSend(
+                                          context, username, email, password);
+                                      /*Navigator.pushAndRemoveUntil(
                                           context,
                                           MaterialPageRoute(
-                                              builder: (context) => const MyGraph()
-                                          ),
-                                          ModalRoute.withName("/homePage")
-                                      );
+                                              builder: (context) =>
+                                              const MyGraph()),
+                                          ModalRoute.withName("/homePage"));*/
                                     },
                                     icon: const Icon(
                                       Icons.arrow_forward,
@@ -155,10 +183,11 @@ class _MyRegisterState extends State<MyRegister> {
                             children: [
                               TextButton(
                                 onPressed: () {
-                                  Navigator.push(context, MaterialPageRoute(
-                                      builder: (context) =>
-                                      const MyLogin())
-                                  );
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) =>
+                                          const MyLogin()));
                                   // Navigator.pushNamed(context, 'login');
                                 },
                                 child: const Text(
@@ -184,5 +213,55 @@ class _MyRegisterState extends State<MyRegister> {
         ),
       ),
     );
+  }
+
+  Future<void> checkDataAndSend(BuildContext context, String username, String email,
+      String password) async {
+    var logindata = await SharedPreferences.getInstance();
+    if (username != '' && email != '' && password != '') {
+      Map data = {
+        'name': username,
+        'email': email,
+        'password': password
+      };
+      var jsonResponse = null;
+      var response = await http.post(Uri.parse('https://warm-mesa-70121.herokuapp.com/api/register-user'), headers : {
+        "Accept": "application/json"
+      },body: data);
+      // if(response.statusCode == 200) {
+      print(data);
+
+      // Getting Server response into variable.
+      var message = jsonDecode(response.body);
+      print(message);
+
+      jsonResponse = json.decode(response.body);
+      if(jsonResponse != null) {
+        print(jsonResponse['uid']);
+
+        logindata.setBool("login", true);
+        // }
+      }else{
+        Fluttertoast.showToast(
+            msg: "Server error",
+            toastLength: Toast.LENGTH_SHORT,
+            gravity: ToastGravity.CENTER,
+            timeInSecForIosWeb: 1,
+            backgroundColor: Colors.red,
+            textColor: Colors.white,
+            fontSize: 16.0
+        );
+      }
+    } else {
+      Fluttertoast.showToast(
+          msg: "Please Fill Box",
+          toastLength: Toast.LENGTH_SHORT,
+          gravity: ToastGravity.CENTER,
+          timeInSecForIosWeb: 1,
+          backgroundColor: Colors.red,
+          textColor: Colors.white,
+          fontSize: 16.0
+      );
+    }
   }
 }

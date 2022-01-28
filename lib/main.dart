@@ -15,13 +15,15 @@ void main() {
     debugShowCheckedModeBanner: false,
     home: const StartedPage(),
     routes: {
-      'register': (context) => const MyRegister(),
+      'saveUserModel': (context) => const MyRegister(),
       'login': (context) => const MyLogin(),
       'started': (context) => const StartedPage(),
-      'homePage': (context) => HomePage(),
+      'homePage': (context) => const HomePage(),
       // 'profile': (context) =>  MyProfile(),
-      'graph': (context) =>  MyGraph(),
-      'settings': (context) => MySettings(),
+      'graph': (context) =>  const MyGraph(),
+      'settings': (context) => const MySettings(),
     },
-  ));
+  ),);
+
+
 }
