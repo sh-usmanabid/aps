@@ -226,8 +226,8 @@ class _MyRegisterState extends State<MyRegister> {
       };
       var jsonResponse = null;
       var response = await http.post(Uri.parse('https://warm-mesa-70121.herokuapp.com/api/register-user'), headers : {
-        "Accept": "application/json"
-      },body: data);
+        "Content-Type": "application/json"
+      },body: jsonEncode(data));
       // if(response.statusCode == 200) {
       print(data);
 

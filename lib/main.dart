@@ -23,7 +23,6 @@ void main() {
       'graph': (context) =>  const MyGraph(),
       'settings': (context) => const MySettings(),
     },
-  ),);
-
+  ));
 
 }
