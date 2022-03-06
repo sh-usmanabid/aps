@@ -1,16 +1,3 @@
-# alzheimer_patient_support
+**Alzheimer Patient Support**
 
-Alzheimer Patient Support
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Alzheimer disease is a progressive brain disease which slowly destroys the thinking skills and the memory of the patient in a way that the patient loses the ability to perform basic simplest tasks of everyday normal life. Every three seconds an Alzheimer patient is diagnosed, with mostly between ages 75 or older, and 10 % people are 65 or older. This clearly renders the issue being a serious one. The project aims at providing a solution to assist Alzheimer patients by designing hardware and software-based solution. Our main aim to assist the patient to perform the basic tasks of everyday life which involves assisting and remote monitoring through mobile application for proper medication, eating, sleeping and tracking. This IOT enabled solution will be based on the data acquired through sensors, and wearable device to a user-friendly mobile application. All the data from our mobile application will be saved on a secure cloud server so the caretaker of that patient can view the stats from anywhere in the world.
